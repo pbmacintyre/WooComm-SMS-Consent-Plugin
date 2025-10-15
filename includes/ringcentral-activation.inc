@@ -12,26 +12,11 @@ require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
 /* Create ringcentral_control table  */
 /* ================================= */
 $ringcentral_sql = "CREATE TABLE `ringcentral_control` (
-  `ringcentral_control_id` int(11) NOT NULL AUTO_INCREMENT,
-  `embedded_phone` tinyint(4) NOT NULL,
-  `disable_glip` tinyint(4) NOT NULL,  
-  `enable_sms_template` tinyint(4) NOT NULL, 
-  `disable_calls` tinyint(4) NOT NULL, 
-  `disable_call_history` tinyint(4) NOT NULL,
-  `disable_contacts` tinyint(4) NOT NULL,
-  `disable_messages` tinyint(4) NOT NULL,
-  `disable_meetings` tinyint(4) NOT NULL,   
+  `ringcentral_control_id` int(11) NOT NULL AUTO_INCREMENT,     
   `jwt_key` text NOT NULL,
   `webhook_token` VARCHAR(100) NULL,  
   `ringcentral_user_name` varchar(50) NOT NULL,  
-  `ringcentral_sandbox` TINYINT NOT NULL,  
-  `email_updates` tinyint(4) NOT NULL,
-  `mobile_updates` tinyint(4) NOT NULL,
-  `token_prefix` varchar(10) NOT NULL,
-  `grc_site_key` VARCHAR(75) NOT NULL,
-  `grc_secret_key` VARCHAR(75) NOT NULL,
-  `oauth_client` varchar(75) NOT NULL,
-  `oauth_secret` varchar(75) NOT NULL,  
+   
   PRIMARY KEY (`ringcentral_control_id`)
 ) ";
 dbDelta($ringcentral_sql);
