@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: RingCentral
+Plugin Name: WooCommerce SMS Consent Management
 Plugin URI:  https://paladin-bs.com
 Description: RingCentral Communications Plugin - FREE
 Author:      Peter MacIntyre
-Version:     1.7.0
+Version:     0.1.0
 Author URI:  https://paladin-bs.com/about
 Details URI: https://paladin-bs.com
 License:     GPL2
@@ -29,7 +29,7 @@ Copyright (C) 2019-2025 Paladin Business Solutions
 /* Set RingCentral Constant values */
 /* ============================== */
 if (!defined('RINGCENTRAL_PLUGIN_VERSION')) {
-    define('RINGCENTRAL_PLUGIN_VERSION', "1.7.0");
+    define('RINGCENTRAL_PLUGIN_VERSION', "0.1.0");
 }
 if (!defined('RINGCENTRAL_PLUGINDIR')) {
     define('RINGCENTRAL_PLUGINDIR', plugin_dir_path(__FILE__));
@@ -44,9 +44,9 @@ if (!defined('RINGCENTRAL_PLUGIN_INCLUDES')) {
 if (!defined('RINGCENTRAL_PLUGIN_FILENAME')) {
     define('RINGCENTRAL_PLUGIN_FILENAME', plugin_basename(dirname(__FILE__) . '/ringcentral.php'));
 }
-if (!defined('RINGCENTRAL_PRO_URL')) {
-    define('RINGCENTRAL_PRO_URL', 'https://paladin-bs.com/product/rccp-pro/');
-}
+//if (!defined('RINGCENTRAL_PRO_URL')) {
+//    define('RINGCENTRAL_PRO_URL', 'https://paladin-bs.com/product/rccp-pro/');
+//}
 if (!defined('RINGCENTRAL_LOGO')) {
     define('RINGCENTRAL_LOGO', RINGCENTRAL_PLUGINURL . 'images/rc_logo_60_60.jpg');
 }
