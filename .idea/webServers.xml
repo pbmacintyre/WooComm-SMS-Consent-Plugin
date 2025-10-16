@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="f5563f79-b26e-4ce7-a7a3-c9ac70b84a9c" name="WooComm-SMS-consent" url="http://ftp.paladin-bs.com">
+        <fileTransfer rootFolder="/ringcent/wp-content/plugins/woocomm-sms-consent" host="ftp.paladin-bs.com" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
