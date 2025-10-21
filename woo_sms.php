@@ -89,6 +89,7 @@ add_action('admin_print_styles', 'ringcentral_load_custom_admin_css');
 /* ============================================= */
 /* Add registration hook for plugin installation */
 /* ============================================= */
+register_activation_hook(__FILE__, 'ringcentral_install');
 function ringcentral_install() {
     require_once(WOO_SMS_PLUGINDIR . "includes/ringcentral-install.inc");
 }
@@ -96,106 +97,59 @@ function ringcentral_install() {
 /* ========================================= */
 /* Create default pages on plugin activation */
 /* ========================================= */
-function ringcentral_install_default_pages() {
+register_activation_hook(__FILE__, 'ringcentral_activation');
+function ringcentral_activation() {
     require_once(WOO_SMS_PLUGINDIR . "includes/ringcentral-activation.inc");
 }
-
-register_activation_hook(__FILE__, 'ringcentral_install');
-register_activation_hook(__FILE__, 'ringcentral_install_default_pages');
 
 /* ===================================== */
 /* WooCommerce additional features start */
 /* ===================================== */
 
-//add_action('woocommerce_after_order_notes', 'woo_sms_consent_function');
-add_action('woocommerce_after_checkout_billing_form', 'woo_sms_consent_function');
+/* ======================================= */
+/* Show SMS consent choice per order view  */
+/* on logged in account area in frontend   */
+/* ======================================= */
 
+add_action('woocommerce_after_order_details', 'woo_sms_consent_view_order_details');
+function woo_sms_consent_view_order_details($order) {
+	$order_id = $order->get_id();
+	$sms_consent = get_post_meta( $order_id, 'woo_sms_consent', true );
+	if ($sms_consent) {
+		$message = "<br/>You have agreed to receive SMS messages regarding this order." ;
+	} else {
+		$message = "<br/>You have chosen not to receive SMS messages regarding this order." ;
+	}
+	echo_spaces( $message, "","blue", 0, 2);
+}
+
+
+
+add_action('woocommerce_after_checkout_billing_form', 'woo_sms_consent_function');
 function woo_sms_consent_function($checkout) {
 	echo '<div id="your_custom_div">';
 	woocommerce_form_field('woo_sms_consent', array(
 		'type'          => 'checkbox',
 		'class'         => array('your-custom-class form-row-wide'),
-		'label'         => __('Grant SMS Consent'),
+		'label'         => __('Grant SMS Consent for this order'),
 		//'placeholder'   => __('Enter something'),
 		//'required'      => true,
 	), $checkout->get_value('woo_sms_consent'));
 	echo '</div>';
-	$message = "Check the box above if you agree to receive SMS messages regarding your orders from this shop." ;
+	$message = "Check the box above if you agree to receive SMS messages regarding this current order." ;
 	echo_spaces( $message, "","blue", 0, 2);
 }
 
 add_action('woocommerce_checkout_update_order_meta', 'save_custom_field_data');
 
 function save_custom_field_data($order_id) {
-	//Saved to wp_postmeta table
 	if (!empty($_POST['woo_sms_consent'])) {
-		// the order_id is stored in the post_id field
+        // Saved to wp_postmeta table
+        // the order_id is stored in the post_id field
 		// woo_sms_consent field name is stored in the meta_key field
 		// the checkbox's value 0 or 1 is stored in the meta_value field
 		update_post_meta($order_id, 'woo_sms_consent', sanitize_text_field($_POST['woo_sms_consent']));
 	}
 }
 
-
-// Display checkbox on registration form
-add_action( 'woocommerce_register_form', 'sms_consent_customer_reg' );
-function sms_consent_customer_reg() {
-	?>
-	<p class="form-row form-row-wide">
-		<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
-			<input type="checkbox" name="sms_customer_consent" id="sms_customer_consent" value="0" class="woocommerce-form__input woocommerce-form__input-checkbox" />
-			<span>I agree to receive SMS notifications from this store.</span>
-		</label>
-	</p>
-	<?php
-}
-
-// Save registration checkbox value in user meta
-add_action( 'woocommerce_created_customer', 'sms_consent_customer_save' );
-function sms_consent_customer_save( $customer_id ) {
-	$sms_consent = isset( $_POST['sms_customer_consent'] ) ? 'yes' : 'no';
-	update_user_meta( $customer_id, 'sms_customer_consent', $sms_consent );
-}
-
-// =====================================
-// =====================================
-// =====================================
-
-add_action( 'woocommerce_edit_account_form', 'sms_consent_customer_show' );
-function sms_consent_customer_show() {
-	$user_id = get_current_user_id();
-	$sms_consent = get_user_meta( $user_id, 'sms_customer_consent', true );
-	?>
-	<p class="form-row form-row-wide">
-		<label>
-			<input type="checkbox" name="sms_customer_consent" <?php checked( $sms_consent, 'yes' ); ?> />
-			<span>I agree to receive SMS notifications.</span>
-		</label>
-	</p>
-	<?php
-}
-
-add_action( 'woocommerce_save_account_details', 'my_custom_account_checkbox_save' );
-function my_custom_account_checkbox_save( $user_id ) {
-	update_user_meta( $user_id, 'sms_customer_consent', isset( $_POST['sms_customer_consent'] ) ? 'yes' : 'no' );
-}
-
-// =====================================
-// =====================================
-// =====================================
-
-
-// Add column to Users → All Users
-add_filter( 'manage_users_columns', function( $columns ) {
-	$columns['sms_customer_consent'] = __( 'SMS Consent', 'woocommerce' );
-	return $columns;
-});
-
-add_filter( 'manage_users_custom_column', function( $value, $column_name, $user_id ) {
-	if ( $column_name === 'sms_customer_consent' ) {
-		$consent = get_user_meta( $user_id, 'sms_customer_consent', true );
-		return $consent === 'yes' ? '✅ Yes' : '❌ No';
-	}
-	return $value;
-}, 10, 3 );
 ?>
