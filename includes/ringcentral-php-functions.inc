@@ -25,7 +25,12 @@ function echo_admin_spaces($text, $value="", $lines=0) {
 		$i++;
 	}
 }
-function echo_spaces($text, $value="", $color="red", $bold=0, $lines=0 ) {
+function echo_spaces($text, $value="", $color="red", $bold=0, $pre_lines=0, $post_lines=0 ) {
+	$i = 1;
+	while ($i <= $pre_lines) {
+		echo "<br />" ;
+		$i++;
+	}
 	if ($bold == 1) { echo "<strong>" ; }
 	echo "<p style='color: $color; display: inline'>$text";
 	if ($value !== "") { echo ": " ; }
@@ -34,10 +39,10 @@ function echo_spaces($text, $value="", $color="red", $bold=0, $lines=0 ) {
 	if (is_string($value) || is_int($value))  { echo $value; }
 	if (is_object($value) || is_array($value)) { ringcentral_dump_obj($value); }
 	if (is_bool($value)) { if ($value) echo "TRUE / Success"; else echo 'FALSE / Failure'; }
-	$i = 1 ;
-	while ($i <= $lines) {
+	$j = 1 ;
+	while ($j <= $post_lines) {
 		echo "<br />" ;
-		$i++;
+		$j++;
 	}
 }
 /* ======================== */

@@ -116,11 +116,11 @@ function woo_sms_consent_view_order_details($order) {
 	$order_id = $order->get_id();
 	$sms_consent = get_post_meta( $order_id, 'woo_sms_consent', true );
 	if ($sms_consent) {
-		$message = "<br/>You have agreed to receive SMS messages regarding this order." ;
+		$message = "You have agreed to receive SMS messages regarding this order." ;
 	} else {
-		$message = "<br/>You have chosen not to receive SMS messages regarding this order." ;
+		$message = "You have chosen not to receive SMS messages regarding this order." ;
 	}
-	echo_spaces( $message, "","blue", 0, 2);
+	echo_spaces( $message, "","blue", 0, 1);
 }
 
 
