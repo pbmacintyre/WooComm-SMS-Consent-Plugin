@@ -120,7 +120,7 @@ function woo_sms_consent_view_order_details($order) {
 	} else {
 		$message = "You have chosen not to receive SMS messages regarding this order." ;
 	}
-	echo_spaces( $message, "","blue", 0, 1);
+	echo_spaces( $message, "","blue", 1, 1);
 }
 
 
@@ -137,7 +137,7 @@ function woo_sms_consent_function($checkout) {
 	), $checkout->get_value('woo_sms_consent'));
 	echo '</div>';
 	$message = "Check the box above if you agree to receive SMS messages regarding this current order." ;
-	echo_spaces( $message, "","blue", 0, 2);
+	echo_spaces( $message, "","blue", 0);
 }
 
 add_action('woocommerce_checkout_update_order_meta', 'save_custom_field_data');
@@ -149,6 +149,7 @@ function save_custom_field_data($order_id) {
 		// woo_sms_consent field name is stored in the meta_key field
 		// the checkbox's value 0 or 1 is stored in the meta_value field
 		update_post_meta($order_id, 'woo_sms_consent', sanitize_text_field($_POST['woo_sms_consent']));
+		update_post_meta($order_id, 'woo_sms_store_url', get_site_url());
 	}
 }
 
