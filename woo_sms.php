@@ -137,7 +137,7 @@ function woo_sms_consent_function($checkout) {
 	), $checkout->get_value('woo_sms_consent'));
 	echo '</div>';
 	$message = "Check the box above if you agree to receive SMS messages regarding this current order." ;
-	echo_spaces( $message, "","blue", 0);
+	echo_spaces( $message, "","blue", 0, 0, 2);
 }
 
 add_action('woocommerce_checkout_update_order_meta', 'save_custom_field_data');
