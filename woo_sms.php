@@ -123,8 +123,6 @@ function woo_sms_consent_view_order_details($order) {
 	echo_spaces( $message, "","blue", 1, 1);
 }
 
-
-
 add_action('woocommerce_after_checkout_billing_form', 'woo_sms_consent_function');
 function woo_sms_consent_function($checkout) {
 	echo '<div id="your_custom_div">';
