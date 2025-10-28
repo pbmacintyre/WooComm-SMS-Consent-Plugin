@@ -129,7 +129,7 @@ function woo_sms_consent_function($checkout) {
 	woocommerce_form_field('woo_sms_consent', array(
 		'type'          => 'checkbox',
 		'class'         => array('your-custom-class form-row-wide'),
-		'label'         => __('Grant SMS Consent for this order'),
+		'label'         => __('Grant SMS Consent for this order', 'default'),
 		//'placeholder'   => __('Enter something'),
 		//'required'      => true,
 	), $checkout->get_value('woo_sms_consent'));
