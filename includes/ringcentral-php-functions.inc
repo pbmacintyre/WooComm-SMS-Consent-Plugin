@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2019-2025 Paladin Business Solutions
+ * Copyright (C) 2025 RingCentral
  *
  */
 
@@ -12,6 +12,7 @@ function show_errors($toggle = 1) {
 //     error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
     ini_set('display_errors', $toggle);
 }
+
 function echo_admin_spaces($text, $value="", $lines=0) {
     $count = 50;
     for ($i = 1; $i <= $count; $i++) echo "&nbsp;" ;
@@ -25,6 +26,7 @@ function echo_admin_spaces($text, $value="", $lines=0) {
 		$i++;
 	}
 }
+
 function echo_spaces($text, $value="", $color="red", $bold=0, $pre_lines=0, $post_lines=0 ) {
 	$i = 1;
 	while ($i <= $pre_lines) {
