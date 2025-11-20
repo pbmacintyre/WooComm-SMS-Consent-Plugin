@@ -3,7 +3,7 @@ Contributors:      pbmacintyre
 Tags:              RingCentral Communications API tools
 Requires at least: 6.8
 Tested up to:      6.8
-Stable tag:        0.1.3
+Stable tag:        0.1.5
 Requires PHP:      8.3
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
